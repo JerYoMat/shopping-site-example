@@ -3,6 +3,7 @@ import Nav from './Nav';
 import './App.css';
 import ItemPage from './ItemPage';
 import {items} from './static-data';
+import CartPage from './CartPage';
 class App extends Component {
   state = {
     activeTab: 0,
@@ -26,8 +27,28 @@ class App extends Component {
           items={items}
           onAddToCart={this.handleAddToCart} />
         );
-      case 1: return <span>Cart Placeholder</span>;
+      case 1: return this.renderCart();
     }
+  }
+
+  renderCart() {
+    let itemCounts = this.state.cart.reduce((itemCounts, itemId) => {
+      itemCounts[itemId] = itemCounts[itemId] || 0;
+      itemCounts[itemId]++;
+      return itemCounts;
+    }, {});
+    let cartItems = Object.keys(itemCounts).map(itemId => {
+      var item = items.find(item =>
+        item.id === parseInt(itemId, 10)
+        );
+        return {
+          ...item,
+          count:itemCounts[itemId]
+        }
+    });
+    return (
+      <CartPage items={cartItems} />
+    );
   }
   render() {
     let {activeTab} = this.state;
@@ -35,9 +56,6 @@ class App extends Component {
       <div className="App">
         <Nav activeTab={activeTab} onTabChange={this.handleTabChange} />
         <main className="App-content">
-          <div>
-            {this.state.cart.length} items
-          </div>
           {this.renderContent()}
         </main>
       </div>
