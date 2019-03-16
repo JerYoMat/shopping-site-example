@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Nav from './Nav';
 import './App.css';
-
+import ItemPage from './ItemPage';
+import {items} from './static-data';
 class App extends Component {
   state = {
     activeTab: 0
@@ -14,7 +15,7 @@ class App extends Component {
   renderContent() {
     switch(this.state.activeTab) {
       default:
-      case 0: return <span>Items Placeholder</span>;
+      case 0: return <ItemPage items={items} />;
       case 1: return <span>Cart Placeholder</span>;
     }
   }
