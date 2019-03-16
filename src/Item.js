@@ -18,17 +18,13 @@ const Item = ({ item, onAddToCart}) => (
         ${item.price}
       </div>
       <button
-        className='Item-addToCart'
-        onClick={onAddToCart}
-      >
-        Add to Cart
-      </button>
+            className='Item-addToCart'
+            onClick={() => onAddToCart(item)}>
+            Add To Cart
+          </button>
     </div>
   </div>
 );
-Item.propTypes = {
-  item: PropTypes.object.isRequired,
-  onAddToCart: PropTypes.func.isRequired
-}
+
 
 export default Item;
